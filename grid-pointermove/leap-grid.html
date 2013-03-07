@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Leap Grid</title>
+    <style>
+
+      *,*:before,*:after { 
+        margin: 0; 
+        padding: 0; 
+        border: 0;
+        -webkit-box-sizing: border-box;
+      }
+
+      body,
+      #app {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: #202020;
+      }
+
+      #cursor {
+        z-index: 999;
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: red;
+      }
+
+      #wrapper {
+        z-index: 1;
+        position: absolute;
+        width: 2040px;
+        height: 2040px;
+        left: 50%;
+        top: 50%;
+        margin-top: -1200px;
+        margin-left: -1200px;
+      }
+
+      #grid {
+        width: 2040px;
+        height: 2040px;
+        display: -webkit-flex;
+        -webkit-flex-wrap: wrap;
+        -webkit-align-content: center;
+        -webkit-transform-origin: 50%;
+        /*-webkit-transform: translateX(100px) translateY(100px);*/
+      }
+
+      #grid figure {
+        width: 680px;
+        height: 680px;
+        background-color: transparent;
+        padding: 20px;
+      }
+
+      #grid figure img {
+        max-width: 640px;
+        height: auto;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div id="cursor"></div>
+      <div id="wrapper">
+        <section id="grid">
+          <figure id="cell-01"><img src="http://www.placekitten.com/680/680"></figure>
+          <figure id="cell-02"><img src="http://www.placekitten.com/700/700"></figure>
+          <figure id="cell-03"><img src="http://www.placekitten.com/720/720"></figure>
+          <figure id="cell-04"><img src="http://www.placekitten.com/740/740"></figure>
+          <figure id="cell-05"><img src="http://www.placekitten.com/760/760"></figure>
+          <figure id="cell-06"><img src="http://www.placekitten.com/780/780"></figure>
+          <figure id="cell-07"><img src="http://www.placekitten.com/800/800"></figure>
+          <figure id="cell-08"><img src="http://www.placekitten.com/820/820"></figure>
+          <figure id="cell-09"><img src="http://www.placekitten.com/840/840"></figure>
+        </section>
+      </div>
+    </div>
+    <script src="../leap.js"></script>
+    <script>
+
+      var controller = new Leap.Controller({enableGestures:true});
+      var appW = document.getElementById('app').offsetWidth;
+      var appH = document.getElementById('app').offsetHeight;
+      var cursor = document.getElementById('cursor');
+      var grid = document.getElementById('grid');
+      var gridW = grid.offsetWidth;
+      var gridH = grid.offsetHeight;
+      var fingerPos = {};
+      var gestures = {};
+      var startDirection = {};
+      var endDirection = {};
+
+      controller.loop(function(frame) {
+        // Pointables
+        for(var i = 0; i < 1; i++) {
+          var finger = frame.pointables[i];
+          if (typeof(finger) != 'undefined') {
+            fingerPos.x = finger.tipPosition[0];
+            fingerPos.y = finger.tipPosition[1];
+            fingerPos.z = finger.tipPosition[2];
+            //console.log(fingerPos.x);
+            var gridX = -(fingerPos.x*6);
+            var gridY = (fingerPos.y*10)-(gridW);
+            var cursorX = (fingerPos.x*2)+(appW/2);
+            var cursorY = -(fingerPos.y*2)+(appH);
+            cursor.style.webkitTransform = 'translateX('+cursorX+'px) translateY('+cursorY+'px)';
+            grid.style.webkitTransform = 'translateX('+gridX+'px) translateY('+gridY+'px)';
+          }
+        }
+        // Gestures
+        var gestureIds = {};
+        for (var gestureId = 0, gestureCount = frame.gestures.length; gestureId != gestureCount; gestureId++) {
+          var gesture = frame.gestures[gestureId];
+          var type = gesture.type;
+          var state = gesture.state;
+          if (type === 'screenTap') {
+            if (state === 'stop') {
+              console.log('Tap!');
+            }
+          }
+        }
+      });
+
+    </script>
+  </body>
+</html>
