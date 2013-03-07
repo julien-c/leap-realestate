@@ -152,29 +152,32 @@
           var gesture = frame.gestures[gestureId];
           var type = gesture.type;
           var state = gesture.state;
-          console.log(gesture.type);
+          var speed = gesture.speed;
+          console.log(speed);
           if (typeof(gesture.direction) != 'undefined') {
             if (type === "swipe") {
               if (state === "start") {
                 startDirection.x = gesture.direction[0];
                 startDirection.y = gesture.direction[1];
+                if (startDirection.x < 0 ) {
+                  logGesture("&#8592;");
+                  sectionY -= 45;
+                  carousel.style.webkitTransition = '-webkit-transform '+1100/speed+'s ease';
+                  carousel.style.webkitTransform = 'translateZ(-800px) rotateY('+sectionY+'deg)';
+                }
+                if (startDirection.x > 0 ) {
+                  logGesture("&#8594;");
+                  sectionY += 45;
+                  carousel.style.webkitTransition = '-webkit-transform '+1100/speed+'s ease';
+                  carousel.style.webkitTransform = 'translateZ(-800px) rotateY('+sectionY+'deg)';
+                }
               }
               if (state === "update") {
-                logGesture("?");
+                //logGesture("?");
               }
               if (state === "stop") {
                 endDirection.x = gesture.direction[0];
                 endDirection.y = gesture.direction[1];
-                if (endDirection.x < 0 ) {
-                  logGesture("&#8592;");
-                  sectionY -= 45;
-                  carousel.style.webkitTransform = 'translateZ(-800px) rotateY('+sectionY+'deg)';
-                }
-                if (endDirection.x > 0 ) {
-                  logGesture("&#8594;");
-                  sectionY += 45;
-                  carousel.style.webkitTransform = 'translateZ(-800px) rotateY('+sectionY+'deg)';
-                }
               }
             }
           }
