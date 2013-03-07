@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>Dumper - Leap</title>
+    <script src="leap.js"></script>
+    <script>
+      var pausedFrame = null;
+      var latestFrame = null;
+      window.onkeypress = function(e) {
+        if (e.charCode == 32) {
+          if (pausedFrame == null) {
+            pausedFrame = latestFrame;
+          } else {
+            pausedFrame = null;
+          }
+        }
+      };
+      var controller = new Leap.Controller({enableGestures: true});
+      controller.loop(function(frame) {
+        if (frame.gestures.length) {
+          frame.gestures.forEach(function(gesture) {
+            if (gesture.type === 'swipe') {
+              var direction = gesture.direction;
+              if (Math.abs(direction[0]) > Math.abs(direction[1])) {
+                if (direction[0] > 0) {
+                  console.log('swipe right');
+                }
+                else {
+                  console.log('swipe left');
+                }
+              }
+              else {
+                if (direction[1] > 0) {
+                  console.log('swipe up');
+                }
+                else {
+                  console.log('swipe down');
+                }
+              }
+            }
+          });
+        }
+        latestFrame = frame;
+        document.getElementById('out').innerHTML = (pausedFrame ? "<p><b>PAUSED</b></p>" : "") + "<div>"+(pausedFrame || latestFrame).dump()+"</div>";
+      });
+    </script>
+  </head>
+  <body>
+    <div id="out"></div>
+    <div id="log"></div>
+  </body>
+</html>
