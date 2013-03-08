@@ -133,7 +133,6 @@
       var carousel = document.getElementById('carousel');
       var gestures = {};
       var startDirection = {};
-      var endDirection = {};
       var sectionY = 0;
 
       function logGesture(direction) {
@@ -146,38 +145,48 @@
         },1000);
       }
 
+      function getDirection(X,Y) {
+        var dir = {};
+        dir.x = X;
+        dir.y = Y;
+        if (X < 0) { X = X*-1 }
+        if (Y < 0) { Y = Y*-1 }
+        if (X > Y && dir.x > 0) {
+          logGesture('→');
+        } else if (X > Y && dir.x < 0) {
+          logGesture('←');
+        } else if (Y > X && dir.y > 0) {
+          logGesture('↑');
+        } else if (Y > X && dir.y < 0) {
+          logGesture('↓');
+        }
+      }
+
+      function moveSection(speed,posY) {
+        carousel.style.webkitTransition = '-webkit-transform '+1100/speed+'s ease';
+        carousel.style.webkitTransform = 'translateZ(-800px) rotateY('+posY+'deg)';
+      }
+
       controller.loop(function(frame) {
-        var gestureIds = {};
         for (var gestureId = 0, gestureCount = frame.gestures.length; gestureId != gestureCount; gestureId++) {
           var gesture = frame.gestures[gestureId];
           var type = gesture.type;
           var state = gesture.state;
           var speed = gesture.speed;
-          console.log(speed);
           if (typeof(gesture.direction) != 'undefined') {
             if (type === "swipe") {
               if (state === "start") {
                 startDirection.x = gesture.direction[0];
                 startDirection.y = gesture.direction[1];
+                getDirection(startDirection.x,startDirection.y);
                 if (startDirection.x < 0 ) {
-                  logGesture("&#8592;");
                   sectionY -= 45;
-                  carousel.style.webkitTransition = '-webkit-transform '+1100/speed+'s ease';
-                  carousel.style.webkitTransform = 'translateZ(-800px) rotateY('+sectionY+'deg)';
+                  moveSection(speed,sectionY);
                 }
                 if (startDirection.x > 0 ) {
-                  logGesture("&#8594;");
                   sectionY += 45;
-                  carousel.style.webkitTransition = '-webkit-transform '+1100/speed+'s ease';
-                  carousel.style.webkitTransform = 'translateZ(-800px) rotateY('+sectionY+'deg)';
+                  moveSection(speed,sectionY);
                 }
-              }
-              if (state === "update") {
-                //logGesture("?");
-              }
-              if (state === "stop") {
-                endDirection.x = gesture.direction[0];
-                endDirection.y = gesture.direction[1];
               }
             }
           }
