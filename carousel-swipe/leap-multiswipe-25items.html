@@ -251,6 +251,12 @@
       var curTile = (maxSwipe)+'-'+(maxSwipe);
       var detailView = false;
 
+      app.addEventListener('click', function() {
+        var el = document.documentElement,
+            rfs = el.webkitRequestFullScreen;
+            rfs.call(el);
+      });
+
       function setupTiles() {
         var col = -1;
         var row = 0;
