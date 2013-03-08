@@ -332,27 +332,31 @@
                   if (startDir.x < 0) { startDir.x = startDir.x*-1 }
                   if (startDir.y < 0) { startDir.y = startDir.y*-1 }
                   if (startDir.x > startDir.y && dir.x > 0) {
-                    logGesture('←');
-                    if (gridX/tileW < maxSwipe ) { 
-                      gridX += tileW; 
-                      moveSection(speed,gridX,gridY);
-                    }
-                  } else if (startDir.x > startDir.y && dir.x < 0) {
+                    // swipe right
                     logGesture('→');
                     if (gridX/tileW > -maxSwipe) { 
                       gridX -= tileW;
                       moveSection(speed,gridX,gridY);
                     }
-                  } else if (startDir.y > startDir.x && dir.y < 0) {
-                    logGesture('↑');
-                    if (gridY/tileW < maxSwipe) { 
-                      gridY += tileW;
+                  } else if (startDir.x > startDir.y && dir.x < 0) {
+                    // swipe left
+                    logGesture('←');
+                    if (gridX/tileW < maxSwipe ) { 
+                      gridX += tileW; 
                       moveSection(speed,gridX,gridY);
                     }
-                  } else if (startDir.y > startDir.x && dir.y > 0) {
+                  } else if (startDir.y > startDir.x && dir.y < 0) {
+                    // swipe down
                     logGesture('↓');
                     if (gridY/tileW > -maxSwipe) { 
                       gridY -= tileW;
+                      moveSection(speed,gridX,gridY);
+                    }
+                  } else if (startDir.y > startDir.x && dir.y > 0) {
+                    // swipe up
+                    logGesture('↑');
+                    if (gridY/tileW < maxSwipe) { 
+                      gridY += tileW;
                       moveSection(speed,gridX,gridY);
                     }
                   }
