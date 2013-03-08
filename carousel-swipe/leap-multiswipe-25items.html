@@ -23,7 +23,7 @@
 
       #app {
         overflow: hidden;
-        background-color: #202020;
+        background-color: #101010;
         -webkit-perspective: 800;
         -webkit-transform-style: preserve-3d;
       }
@@ -91,11 +91,11 @@
 
       .tile {
         z-index: 1;
-        opacity: .5;
+        opacity: .4;
         width: 660px;
         height: 660px;
         margin: 10px;
-        background-color: #AEAEAE;
+        background-color: #202020;
         -webkit-transform-style: preserve-3d;
         -webkit-transform: translateZ(-100px);
         -webkit-transition: opacity .1s ease,
@@ -104,6 +104,8 @@
       }
 
       .tile img {
+        /*image-rendering:-webkit-optimize-contrast;*/
+        -webkit-transform-style: preserve-3d;
         -webkit-backface-visibility: hidden;
         -webkit-transform: translateZ(2px);
         max-width: 660px;
@@ -113,10 +115,12 @@
       .activeTile {
         z-index: 2;
         opacity: 1;
-        border: 1px solid rgba(255,255,255,.4);
+        background-color: #303030;
         -webkit-transform: translateZ(0);
-        -webkit-box-shadow: 0 0 16px rgba(0,0,0,.6);
+        -webkit-box-shadow: 0 0 16px rgba(0,0,0,.8);
       }
+
+
 
       .selectedTile {
         -webkit-animation: tileTransitionOn 1s forwards;
@@ -183,31 +187,37 @@
       <div id="cursor"></div>
       <div id="wrapper">
         <section id="grid">
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
-          <figure class="tile"><img src="img/product-placeholder.png"></figure>
+
+          <figure class="tile"><img src="img/product-05.png"></figure>
+          <figure class="tile"><img src="img/product-01.png"></figure>
+          <figure class="tile"><img src="img/product-02.png"></figure>
+          <figure class="tile"><img src="img/product-03.png"></figure>
+          <figure class="tile"><img src="img/product-04.png"></figure>
+
+          <figure class="tile"><img src="img/product-02.png"></figure>
+          <figure class="tile"><img src="img/product-03.png"></figure>
+          <figure class="tile"><img src="img/product-04.png"></figure>
+          <figure class="tile"><img src="img/product-05.png"></figure>
+          <figure class="tile"><img src="img/product-01.png"></figure>
+
+          <figure class="tile"><img src="img/product-04.png"></figure>
+          <figure class="tile"><img src="img/product-05.png"></figure>
+          <figure class="tile"><img src="img/product-01.png"></figure>
+          <figure class="tile"><img src="img/product-02.png"></figure>
+          <figure class="tile"><img src="img/product-03.png"></figure>
+
+          <figure class="tile"><img src="img/product-05.png"></figure>
+          <figure class="tile"><img src="img/product-01.png"></figure>
+          <figure class="tile"><img src="img/product-02.png"></figure>
+          <figure class="tile"><img src="img/product-03.png"></figure>
+          <figure class="tile"><img src="img/product-04.png"></figure>
+
+          <figure class="tile"><img src="img/product-02.png"></figure>
+          <figure class="tile"><img src="img/product-03.png"></figure>
+          <figure class="tile"><img src="img/product-04.png"></figure>
+          <figure class="tile"><img src="img/product-05.png"></figure>
+          <figure class="tile"><img src="img/product-01.png"></figure>
+
         </section>
       </div>
       <section id="details">
@@ -267,7 +277,7 @@
             col = 0;
           }
           tiles[i].id = col+'-'+row;
-          tiles[i].style.backgroundColor='#'+Math.floor(Math.random()*16777215).toString(16);
+          //tiles[i].style.backgroundColor='#'+Math.floor(Math.random()*16777215).toString(16);
         }
       }
 
@@ -395,7 +405,7 @@
                 setTimeout(function() { 
                   productDetail = document.getElementById('product-01');
                   productDetail.classList.add('detailActive');
-                }, 1000 );
+                }, 800 );
               }
             }
           }
