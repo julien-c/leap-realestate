@@ -13,12 +13,17 @@
       }
 
       body,
+      #overlay,
       #app {
         position: absolute;
         width: 100%;
         height: 100%;
         font-family: sans-serif;
         color: white;
+      }
+
+      #overlay {
+        -webkit-transform: translateZ(100px);
       }
 
       #app {
@@ -52,20 +57,6 @@
         opacity: 1;
       }
 
-      #cursor {
-        display: none;
-        z-index: 999;
-        position: absolute;
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        background-color: red;
-      }
-
-      #cursor.active {
-        display: block;
-      }
-
       #wrapper {
         z-index: 1;
         position: absolute;
@@ -86,7 +77,6 @@
         -webkit-align-content: center;
         -webkit-transform-origin: 50%;
         -webkit-transform-style: preserve-3d;
-        /*-webkit-transform: translateX(100px) translateY(100px);*/
       }
 
       .tile {
@@ -97,7 +87,7 @@
         margin: 10px;
         background-color: #202020;
         -webkit-transform-style: preserve-3d;
-        -webkit-transform: translateZ(-100px);
+        -webkit-transform: translateZ(-500px);
         -webkit-transition: opacity .1s ease,
                             -webkit-transform .1s ease,
                             -webkit-box-shadow .1s ease;
@@ -116,7 +106,7 @@
         z-index: 2;
         opacity: 1;
         background-color: #303030;
-        -webkit-transform: translateZ(0);
+        -webkit-transform: translateZ(-100px);
         -webkit-box-shadow: 0 0 16px rgba(0,0,0,.8);
       }
 
@@ -129,15 +119,15 @@
       }
 
      @-webkit-keyframes tileTransitionOn {
-        0%    { -webkit-transform: translateZ(0) rotateX(0); }
+        0%    { -webkit-transform: translateZ(-100px) rotateX(0); }
         15%   { -webkit-transform: translateZ(-50px) rotateX(10deg) rotateY(10deg); }
         30%   { -webkit-transform: translateZ(-50px) rotateX(10deg) rotateY(10deg); }
-        100%  { -webkit-transform: translateZ(600px) rotateX(-180deg); }
+        100%  { -webkit-transform: translateZ(378px) rotateX(-180deg); }
       }
 
      @-webkit-keyframes tileTransitionOff {
-        0%    { -webkit-transform: translateZ(600px) rotateX(-180deg); }
-        100%  { -webkit-transform: translateZ(0) rotateX(0); }
+        0%    { -webkit-transform: translateZ(378px) rotateX(-180deg); }
+        100%  { -webkit-transform: translateZ(-100px) rotateX(0); }
       }
 
       .detail {
@@ -146,9 +136,9 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 1000px;
+        width: 1100px;
         height: 700px;
-        margin-left: -500px;
+        margin-left: -550px;
         margin-top: -350px;
         -webkit-transition: opacity .2s ease;
       }
@@ -159,30 +149,46 @@
 
       .col-left {
         position: relative;
-        width: 50%;
+        width: 400px;
         float: left;
         padding-right: 50px;
       }
 
       .col-right {
         position: relative;
-        width: 50%;
+        width: 700px;
         float: right;
       }
 
-      .product-placeholder {
+      h1 {
+        display: block;
+        font-size: 40px;
+        line-height: 44px;
+        font-weight: normal;
+        margin-bottom: 16px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid white;
+      }
+
+      p {
+        font-size: 14px;
+        line-height: 24px;
+        font-weight: normal;
+      }
+
+      #scene {
         position: absolute;
-        width: 500px;
+        width: 700px;
         height: 700px;
-        background-color: white;
+        background-color: #808080;
       }
 
     </style>
   </head>
   <body>
+    <div id="overlay"></div>
     <div id="app">
       <p id="gesture-log"></p>
-      <div id="cursor"></div>
       <div id="wrapper">
         <section id="grid">
 
@@ -220,27 +226,24 @@
       </div>
       <section id="details">
         <figure class="detail" id="product-01">
-          <div class="col-left">
+          <div class="product-description col-left">
             <h1>Product Name</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duarum enim vitarum nobis erunt instituta capienda. Atque haec coniunctio confusioque virtutum tamen a philosophis ratione quadam distinguitur. Duo Reges: constructio interrete. Quid enim necesse est, tamquam meretricem in matronarum coetum, sic voluptatem in virtutum concilium adducere? </p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duarum enim vitarum nobis erunt instituta capienda. Atque haec coniunctio confusioque virtutum tamen a philosophis ratione quadam distinguitur. Duo Reges: constructio interrete. Quid enim necesse est, tamquam meretricem in matronarum coetum, sic voluptatem in virtutum concilium adducere? </p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duarum enim vitarum nobis erunt instituta capienda. Atque haec coniunctio confusioque virtutum tamen a philosophis ratione quadam distinguitur. Duo Reges: constructio interrete. Quid enim necesse est, tamquam meretricem in matronarum coetum, sic voluptatem in virtutum concilium adducere? </p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duarum enim vitarum nobis erunt instituta capienda. Atque haec coniunctio confusioque virtutum tamen a philosophis ratione quadam distinguitur. Duo Reges: constructio interrete. Quid enim necesse est, tamquam meretricem in matronarum coetum, sic voluptatem in virtutum concilium adducere? </p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duarum enim vitarum nobis erunt instituta capienda. Atque haec coniunctio confusioque virtutum tamen a philosophis ratione quadam distinguitur. Duo Reges: constructio interrete. Quid enim necesse est, tamquam meretricem in matronarum coetum, sic voluptatem in virtutum concilium adducere? </p>
+            <p>Duarum enim vitarum nobis erunt instituta capienda. Atque haec coniunctio confusioque virtutum tamen a philosophis ratione quadam distinguitur. Duo Reges: constructio interrete. Quid enim necesse est, tamquam meretricem in matronarum coetum, sic voluptatem in virtutum concilium adducere? </p>
           </div>
           <div class="col-right">
-            <div class="product-placeholder"></div>
+            <iframe id="scene" src=""></iframe> 
           </div>
         </figure>
       </section>
     </div>
-    <script src="../leap.js"></script>
+    <script src="js/leap.js"></script>
     <script>
 
+      // Global vars 
       var controller = new Leap.Controller({enableGestures:true});
       var app = document.getElementById('app');
       var wrapper = document.getElementById('wrapper');
-      var cursor = document.getElementById('cursor');
       var grid = document.getElementById('grid');
       var tiles = document.getElementsByClassName("tile");
       var appW = app.offsetWidth;
@@ -260,7 +263,7 @@
       var detailView = false;
       var inversedScroll = false;
 
-      app.addEventListener('click', function() {
+      document.getElementById('overlay').addEventListener('click', function() {
         var el = document.documentElement,
             rfs = el.webkitRequestFullScreen;
             rfs.call(el);
@@ -281,13 +284,13 @@
       }
 
       function logGesture(direction) {
-        var gestureLog = document.getElementById('gesture-log');
-        gestureLog.innerHTML = direction;
-        gestureLog.classList.add('active');
-        setTimeout(function() {
-          gestureLog.innerHTML = '';
-          gestureLog.classList.remove('active');
-        },1000);
+        // var gestureLog = document.getElementById('gesture-log');
+        // gestureLog.innerHTML = direction;
+        // gestureLog.classList.add('active');
+        // setTimeout(function() {
+        //   gestureLog.innerHTML = '';
+        //   gestureLog.classList.remove('active');
+        // },1000);
       }
 
       function highlightTile() {
@@ -308,17 +311,13 @@
 
       controller.loop(function(frame) {
         // Pointables
-        if (cursorActive) {
-          cursor.classList.add('active');
+        if (detailView) {
           for(var i = 0; i < 1; i++) {
             var finger = frame.pointables[i];
             if (typeof(finger) != 'undefined') {
               fingerPos.x = finger.tipPosition[0];
               fingerPos.y = finger.tipPosition[1];
               fingerPos.z = finger.tipPosition[2];
-              var cursorX = (fingerPos.x*2)+(appW/2);
-              var cursorY = -(fingerPos.y*2)+(appH);
-              cursor.style.webkitTransform = 'translateX('+cursorX+'px) translateY('+cursorY+'px)';
             }
           }
         }
@@ -413,15 +412,18 @@
                   if (startDir.y < 0) { startDir.y = startDir.y*-1 }
                   if (startDir.y > startDir.x && dir.y > 0) {
                     logGesture('↓');
+                    document.getElementById('scene').src = '';
                     var selectedTile = document.getElementById(curTile);
-                    selectedTile.classList.remove('selectedTile');
-                    selectedTile.classList.add('closedTile');
-                    productDetail = document.getElementById('product-01');
-                    productDetail.classList.remove('detailActive');
+                    setTimeout(function() { 
+                      selectedTile.classList.remove('selectedTile');
+                      selectedTile.classList.add('closedTile');
+                      productDetail = document.getElementById('product-01');
+                      productDetail.classList.remove('detailActive');
+                    }, 800 );
                     setTimeout(function() { 
                       selectedTile.classList.remove('closedTile');
                       detailView = false;
-                    }, 1000 );
+                    }, 1800 );
                   }
                 }
               }
@@ -436,7 +438,8 @@
                 setTimeout(function() { 
                   productDetail = document.getElementById('product-01');
                   productDetail.classList.add('detailActive');
-                }, 800 );
+                  document.getElementById('scene').src = 'model01.html';
+                }, 1000 );
               }
             }
           }
