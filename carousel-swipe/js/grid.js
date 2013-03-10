@@ -20,8 +20,10 @@ var moving = false;
 var maxSwipe = (rows-1)/2;
 var curTile = (maxSwipe)+'-'+(maxSwipe);
 var detailView = false;
+var fullScreenMode = false;
 var inversedScroll = false;
 var productDetail = null;
+var iframe = null;
 
 document.getElementById('overlay').addEventListener('click', function() {
   var el = document.documentElement,
@@ -168,24 +170,42 @@ controller.loop(function(frame) {
             var dir = {};
             dir.x = startDir.x;
             dir.y = startDir.y;
-            if (startDir.x < 0) { startDir.x = startDir.x*-1 }
             if (startDir.y < 0) { startDir.y = startDir.y*-1 }
             if (startDir.y > startDir.x && dir.y > 0) {
-              logGesture('↓');
+              // swipe up
+              if (!fullScreenMode) {
+                var iframe = productDetail.getElementsByTagName('iframe');
+                for(var i=0; i<iframe.length; i++) {
+                  iframe[i].src = '';
+                }
+                var selectedTile = document.getElementById(curTile);
+                setTimeout(function() { 
+                  selectedTile.classList.remove('selectedTile');
+                  selectedTile.classList.add('closedTile');
+                  productDetail.classList.remove('detailActive');
+                }, 800 );
+                setTimeout(function() { 
+                  selectedTile.classList.remove('closedTile');
+                  detailView = false;
+                }, 1800 );
+              }
+              if (fullScreenMode) {
+                fullScreenMode = false;
+                app.classList.remove('full-screen');
+                var iframe = productDetail.getElementsByTagName('iframe');
+                for(var i=0; i<iframe.length; i++) {
+                  iframe[i].contentWindow.location.reload();
+                }
+              }
+            }
+            if (startDir.y > startDir.x && dir.y < 0 && !fullScreenMode) {
+              // swipe down
+              fullScreenMode = true;
+              app.classList.add('full-screen');
               var iframe = productDetail.getElementsByTagName('iframe');
               for(var i=0; i<iframe.length; i++) {
-                iframe[i].src = '';
+                iframe[i].contentWindow.location.reload();
               }
-              var selectedTile = document.getElementById(curTile);
-              setTimeout(function() { 
-                selectedTile.classList.remove('selectedTile');
-                selectedTile.classList.add('closedTile');
-                productDetail.classList.remove('detailActive');
-              }, 800 );
-              setTimeout(function() { 
-                selectedTile.classList.remove('closedTile');
-                detailView = false;
-              }, 1800 );
             }
           }
         }

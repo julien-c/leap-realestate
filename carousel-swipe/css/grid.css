@@ -148,9 +148,22 @@ body,
 }
 
 .product-3D {
-  position: relative;
   width: 700px;
+  height: 700px;
   float: right;
+  -webkit-transition: width .5s ease,
+                      height .5s ease;
+}
+
+.full-screen .product-detail,
+.full-screen .product-3D {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin-left: 0;
+  margin-top: 0;
 }
 
 h1 {
@@ -170,9 +183,8 @@ p {
 }
 
 iframe {
-  position: absolute;
   overflow: hidden;
-  width: 700px;
-  height: 700px;
+  width: 100%;
+  height: 100%;
   background-color: #808080;
 }
