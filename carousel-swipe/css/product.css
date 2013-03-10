@@ -1,0 +1,16 @@
+*,*:before,*:after {
+  border: 0;
+  margin: 0; 
+  padding: 0; 
+  border: 0;
+  -webkit-box-sizing: border-box;
+}
+body,
+#scene  {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  font-family: sans-serif;
+  color: white;
+}
