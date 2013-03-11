@@ -198,15 +198,15 @@ controller.loop(function(frame) {
                 }
               }
             }
-            if (startDir.y > startDir.x && dir.y < 0 && !fullScreenMode) {
-              // swipe down
-              fullScreenMode = true;
-              app.classList.add('full-screen');
-              var iframe = productDetail.getElementsByTagName('iframe');
-              for(var i=0; i<iframe.length; i++) {
-                iframe[i].contentWindow.location.reload();
-              }
-            }
+            // if (startDir.y > startDir.x && dir.y < 0 && !fullScreenMode) {
+            //   // swipe down
+            //   fullScreenMode = true;
+            //   app.classList.add('full-screen');
+            //   var iframe = productDetail.getElementsByTagName('iframe');
+            //   for(var i=0; i<iframe.length; i++) {
+            //     iframe[i].contentWindow.location.reload();
+            //   }
+            // }
           }
         }
       }
